@@ -1,0 +1,43 @@
+@use 'variables' as v;
+
+body {
+    background-color: v.$gray-25;
+}
+
+.navbar {
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 72px;
+    box-shadow: 0 4px 16px v.$gray-50;
+
+    .logo {
+        height: 32px;
+        color: #fff;
+        text-decoration: none;
+    }
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 2rem 1.75rem;
+    background: white;
+    border-radius: 0;
+    box-shadow: 0 8px 16px v.$gray-50;
+
+    @media screen and (min-width: 768px) {
+        padding: 3rem 2rem;
+    border-radius: 1rem;
+    }
+}
+
+.tableContainer {
+    overflow-x: auto;
+    margin-top: 1rem;
+}

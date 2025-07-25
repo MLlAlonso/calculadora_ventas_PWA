@@ -1,0 +1,28 @@
+{
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "postdev": "node scripts/inject-sw.js",
+    "postbuild": "node scripts/inject-sw.js"
+  },
+  "dependencies": {
+    "next": "^14.2.30",
+    "next-pwa": "^5.6.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "sass": "^1.82.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.1",
+    "@types/react": "^18.2.0",
+    "@types/workbox-cacheable-response": "^4.3.1",
+    "@types/workbox-expiration": "^4.3.1",
+    "@types/workbox-precaching": "^4.3.1",
+    "@types/workbox-routing": "^4.3.1",
+    "@types/workbox-strategies": "^4.3.1",
+    "@types/workbox-sw": "^4.3.7",
+    "typescript": "^5.7.2"
+  }
+}

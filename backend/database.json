@@ -1,0 +1,46 @@
+{
+  "courses": [
+    {
+      "id": 1753223487212,
+      "name": "Riesgos en Espacios Confinados, con Constancia DC-3",
+      "price": 999
+    },
+    {
+      "id": 1753223791170,
+      "name": "Bloqueo y Etiquetado LOTO, con Constancia DC-3",
+      "price": 999
+    }
+  ],
+  "priceRanges": [
+    {
+      "minUsers": 1,
+      "maxUsers": 99,
+      "pricePerLicense": 1
+    },
+    {
+      "minUsers": 100,
+      "maxUsers": 499,
+      "pricePerLicense": 0.9
+    },
+    {
+      "minUsers": 500,
+      "maxUsers": 999,
+      "pricePerLicense": 0.8
+    },
+    {
+      "minUsers": 1000,
+      "maxUsers": 4999,
+      "pricePerLicense": 0.7
+    },
+    {
+      "minUsers": 5000,
+      "maxUsers": 9999,
+      "pricePerLicense": 0.6
+    },
+    {
+      "minUsers": 10000,
+      "maxUsers": null,
+      "pricePerLicense": 0.5
+    }
+  ]
+}
