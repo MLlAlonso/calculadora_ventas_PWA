@@ -7,9 +7,6 @@ export default function ServiceWorkerRegister() {
   useEffect(() => {
     if ('serviceWorker' in navigator) {
       console.log('Intentando registrar Service Worker...');
-      // CAMBIO AQUÍ: el scope debe coincidir con el manifest para localhost
-      // Pero si disable: true en next.config.js para dev, esto no se ejecutará en absoluto.
-      // Aún así, es buena práctica tenerlo bien.
       navigator.serviceWorker.register('/sw.js', { scope: '/' })
         .then(registration => {
           console.log('✅ Service Worker registrado con éxito:', registration);

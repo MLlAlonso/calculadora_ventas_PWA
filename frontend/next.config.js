@@ -1,30 +1,92 @@
-// calculadora_ventas_pwa/frontend/next.config.js
+const webpack = require('webpack');
+
 const withPWA = require('next-pwa')({
   dest: 'public',
-  register: false,
+  register: true,
   skipWaiting: true,
-  disable: process.env.NODE_ENV === 'development', // <--- Importante: Deshabilitar PWA en desarrollo
+  disable: process.env.NODE_ENV === 'development',
   fallbacks: {
     document: '/_offline',
   },
-  // Si usas un worker.js personalizado, descomenta esto
-  // customWorkerSrc: 'worker.js', 
-  buildExcludes: [/middleware-manifest\.json$/, /_buildManifest\.js$/, /_ssgManifest\.js$/],
-  // No coloques runtimeCaching aquí para desarrollo, se activa en producción
+
+  runtimeCaching: [
+    {
+      urlPattern: ({ url }) => url.origin === process.env.NEXT_PUBLIC_BACKEND_API_BASE_URL_ONLY_DOMAIN,
+      handler: 'NetworkFirst',
+      options: {
+        cacheName: 'next-data-cache',
+        expiration: {
+          maxEntries: 10,
+          maxAgeSeconds: 5 * 60,
+        },
+      },
+    },
+    {
+      urlPattern: ({ url }) => url.origin === process.env.NEXT_PUBLIC_BACKEND_API_BASE_URL_ONLY_DOMAIN,
+      handler: 'NetworkFirst',
+      options: {
+        cacheName: 'next-data-cache',
+        expiration: {
+          maxEntries: 10,
+          maxAgeSeconds: 5 * 60,
+        },
+      },
+    },
+    {
+      urlPattern: /^(http|https):\/\/.*\/_next\/image\?url=.*$/i,
+      handler: 'CacheFirst',
+      options: {
+        cacheName: 'next-images-cache',
+        expiration: {
+          maxEntries: 50,
+          maxAgeSeconds: 30 * 24 * 60 * 60,
+        },
+      },
+    },
+    {
+      urlPattern: new RegExp(`^${process.env.NEXT_PUBLIC_BACKEND_API_BASE_URL}\/(courses|price-ranges)$`, 'i'),
+      handler: 'NetworkFirst',
+      options: {
+        cacheName: 'api-get-cache',
+        expiration: {
+          maxEntries: 10,
+          maxAgeSeconds: 60 * 60,
+        },
+        cacheableResponse: {
+          statuses: [0, 200],
+        },
+      },
+    },
+    {
+      urlPattern: /.*/i,
+      handler: 'NetworkFirst',
+      options: {
+        cacheName: 'others-cache',
+        expiration: {
+          maxEntries: 50,
+          maxAgeSeconds: 24 * 60 * 60,
+        },
+      },
+    },
+  ],
 });
 
 const nextConfig = {
-  // Para desarrollo en localhost, NO necesitas basePath
-  // Si la aplicación se va a desplegar en un subdirectorio en producción,
-  // aquí DEBERÁS configurar basePath a '/calculapp' SOLO PARA PRODUCCIÓN.
-  // Puedes usar una variable de entorno, por ejemplo:
-  // basePath: process.env.NEXT_PUBLIC_BASE_PATH || '', 
-  // Por ahora, para localhost, asegúrate de que no haya un basePath que añada /calculapp
-
   env: {
-    NEXT_PUBLIC_BACKEND_API_BASE_URL: 'http://localhost:3001',
+    NEXT_PUBLIC_BACKEND_API_BASE_URL: process.env.NEXT_PUBLIC_BACKEND_API_BASE_URL || 'http://localhost:3001/api',
+    NEXT_PUBLIC_BACKEND_API_BASE_URL_ONLY_DOMAIN: process.env.NEXT_PUBLIC_BACKEND_API_BASE_URL_ONLY_DOMAIN || 'http://localhost:3001',
   },
-  // Asegúrate de que no haya assetPrefix si estás usando basePath (para producción)
+
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      config.plugins.push(
+        new webpack.DefinePlugin({
+          'process.env.SERVICE_WORKER_BACKEND_URL': JSON.stringify(process.env.NEXT_PUBLIC_BACKEND_API_BASE_URL_ONLY_DOMAIN),
+        })
+      );
+    }
+    return config;
+  },
 };
 
 module.exports = withPWA(nextConfig);

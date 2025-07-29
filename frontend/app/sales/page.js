@@ -22,7 +22,7 @@ export default function SalesPage() {
   useEffect(() => {
     const fetchCoursesForSales = async () => {
       try {
-        const response = await fetch('http://localhost:3001/api/courses');
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_BASE_URL}/courses`);
         if (!response.ok) {
           throw new Error('Error al obtener la lista de cursos para el vendedor.');
         }
@@ -39,9 +39,7 @@ export default function SalesPage() {
       }
     };
     fetchCoursesForSales();
-  }, []); // El array vacío asegura que se ejecute solo una vez al montar el componente
-
-  // Manejador para añadir un curso a la cotización
+  }, []); 
   const handleAddItem = () => {
     setCalculationError(null); // Limpia errores previos
     if (!selectedCourseId || usersToAdd <= 0) {
@@ -97,7 +95,6 @@ export default function SalesPage() {
     setCalculationResult(null); // Borra el resultado de cálculo para forzar un nuevo cálculo
   };
 
-  // useEffect para recalcular automáticamente cuando quotationItems cambia
   useEffect(() => {
     // Solo calcula si hay items y todos tienen usuarios válidos
     if (
@@ -106,13 +103,10 @@ export default function SalesPage() {
     ) {
       handleCalculate();
     } else {
-      // Si no hay ítems o hay alguno con usuarios no válidos, limpia el resultado
       setCalculationResult(null);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [quotationItems]); // Dependencia: se ejecuta cuando quotationItems cambia
 
-  // Manejador para enviar la cotización al backend y obtener el cálculo
   const handleCalculate = async () => {
     setCalculationError(null); // Limpia errores previos
 
@@ -129,14 +123,13 @@ export default function SalesPage() {
         return;
     }
 
-    // Mapea los ítems de cotización al formato esperado por el backend
     const apiQuotationItems = quotationItems.map(item => ({
       courseId: item.courseId,
       users: item.users
     }));
 
     try {
-      const response = await fetch('http://localhost:3001/api/calculate-price', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_BASE_URL}/calculate-price`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -145,7 +138,6 @@ export default function SalesPage() {
       });
 
       if (!response.ok) {
-        // Si la respuesta no es OK (ej. 400, 500), intenta parsear el mensaje de error del backend
         const errorData = await response.json();
         throw new Error(errorData.error || 'Error al calcular el precio.');
       }
@@ -168,7 +160,7 @@ export default function SalesPage() {
           <button
             id='buttonHideForm'
             tabIndex={-1}
-            onMouseDown={e => e.preventDefault()} // Evita que el botón pierda el foco
+            onMouseDown={e => e.preventDefault()}
             onClick={() => setIsFormHidden((prev) => !prev)}>
             {isFormHidden ? (
               <><img src="/icons/icon__visibility.svg" alt="Mostrar formulario" /> Mostrar Formulario </>

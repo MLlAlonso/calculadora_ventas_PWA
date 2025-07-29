@@ -2,8 +2,7 @@
 'use client';
 
 import Link from 'next/link';
-import '../../styles/globals.scss'; // Asegúrate de que tus estilos estén accesibles
-
+import '../../styles/globals.scss'; 
 export default function OfflinePage() {
   return (
     <div className="container" style={{ textAlign: 'center', padding: '50px' }}>

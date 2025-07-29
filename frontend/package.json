@@ -3,9 +3,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "postdev": "node scripts/inject-sw.js",
-    "postbuild": "node scripts/inject-sw.js"
+    "start": "next start -p $PORT" 
   },
   "dependencies": {
     "next": "^14.2.30",

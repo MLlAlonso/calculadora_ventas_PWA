@@ -1,7 +1,9 @@
+// frontend/app/admin/page.js
 "use client";
 
 import { useState, useEffect } from "react";
 import "../../styles/globals.scss";
+const API_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_API_BASE_URL;
 
 export default function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -33,7 +35,8 @@ export default function AdminPage() {
   const fetchCourses = async () => {
     setAdminError(null);
     try {
-      const response = await fetch("http://localhost:3001/api/courses");
+      // Usa la variable de entorno para la URL
+      const response = await fetch(`${API_BASE_URL}/courses`);
       if (!response.ok) {
         throw new Error("Error al obtener la lista de cursos.");
       }
@@ -59,9 +62,10 @@ export default function AdminPage() {
 
     try {
       const method = editingCourse ? "PUT" : "POST";
+      // Usa la variable de entorno para la URL
       const url = editingCourse
-        ? `http://localhost:3001/api/courses/${editingCourse.id}`
-        : "http://localhost:3001/api/courses";
+        ? `${API_BASE_URL}/courses/${editingCourse.id}`
+        : `${API_BASE_URL}/courses`;
 
       const response = await fetch(url, {
         method: method,
@@ -108,7 +112,8 @@ export default function AdminPage() {
 
     setAdminError(null);
     try {
-      const response = await fetch(`http://localhost:3001/api/courses/${id}`, {
+      // Usa la variable de entorno para la URL
+      const response = await fetch(`${API_BASE_URL}/courses/${id}`, {
         method: "DELETE",
       });
 
