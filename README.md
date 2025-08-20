@@ -1,5 +1,14 @@
 # Calculadora de Precios
 
+![REST API](https://img.shields.io/badge/REST%20API-RESTful-4CAF50?style=for-the-badge&logo=api)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16.2-336791?style=for-the-badge&logo=postgresql&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1?style=for-the-badge&logo=mysql)
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![SASS](https://img.shields.io/badge/Sass-CC6699?style=for-the-badge&logo=sass&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![Node.js](https://img.shields.io/badge/Node.js-18.x-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)
+
 Este proyecto es una aplicación web para la gestión y cotización de productos, diseñada para funcionar tanto online como offline (PWA). Incluye un frontend en Next.js y un backend en Node.js con LowDB.
 
 ## Tecnologías utilizadas
@@ -88,3 +97,7 @@ Notas
 El backend utiliza un archivo database.json para almacenar los datos.
 La contraseña de administrador por defecto es: hub2025.
 Para producción, ejecuta npm run build y npm start en el frontend.
+
+📌 **Desarrollado por Mikkel Llaven Alonso**  
+✉️ [mikkel_03@outlook.com](mailto:mikkel_03@outlook.com)  
+💼 [LinkedIn](https://www.linkedin.com/in/mikkel-llaven-alonso-5893b4280/)
